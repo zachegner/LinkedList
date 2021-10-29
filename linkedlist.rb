@@ -10,7 +10,7 @@ class LinkedList
 
     def append(value)
         node = Node.new(value)
-        #if @head is true, @head = @head else @head = node
+        #@head ? @head = @head : @head = node
         @head || @head = node
 
         !@tail ? @tail = node : @tail.next_node = node
@@ -57,7 +57,7 @@ class LinkedList
             current_node = current_node.next_node
             count += 1
         end
-        return current_node.to_str
+        return current_node
     end
 
     def pop
@@ -79,7 +79,8 @@ class LinkedList
             else
             current_node = current_node.next_node
             end
-        end   
+        end
+        return false   
     end
 
     def find(value)
@@ -94,5 +95,22 @@ class LinkedList
         else
             return nil
         end
+    end
+
+    def insert_at(value, index)
+        new_node = Node.new(value)
+        previous_node = self.at(index - 1)
+        current_node = self.at(index)
+        previous_node.next_node = new_node
+        new_node.next_node = current_node
+    end
+
+    def remove_at(index)
+        remove_node = self.at(index)
+        previous_node = self.at(index - 1)
+        next_node = self.at(index + 1)
+        remove_node.value = nil
+        remove_node.next_node = nil
+        previous_node.next_node = next_node
     end
 end
